@@ -1,0 +1,28 @@
+#ifndef Runtimecounter_h_
+#define Runtimecounter_h_
+#include<time.h>
+#include<Windows.h>
+class Runtimecounter{
+public:
+	LARGE_INTEGER t1, t2, tc;
+	Runtimecounter();
+	void start();
+	void stop();
+	double GetRuntime();
+
+};
+
+Runtimecounter::Runtimecounter(){
+	QueryPerformanceFrequency(&tc); 
+}
+void Runtimecounter::start(){
+	QueryPerformanceCounter(&t1);
+}
+void Runtimecounter::stop(){
+	QueryPerformanceCounter(&t2);
+}
+double Runtimecounter::GetRuntime(){
+	double t=(double)(t2.QuadPart-t1.QuadPart)*1.0/(double)tc.QuadPart;
+	return t;
+}
+#endif
