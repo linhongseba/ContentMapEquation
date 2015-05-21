@@ -4,11 +4,12 @@ The implementation for the paper Laura M Smith, Linhong Zhu, Kristina Lerman, an
 #Installation
 1.Requirement:
 g++, gcc compiler
+
 2. platform support:
 Mac, Windows, Linux
+
 3. Compiling
-go into either the Top down or Bottom up,
-type make to automatically compile and generate the executable files
+go into either the Top down or Bottom up, type make to automatically compile and generate the executable files
 
 #Usage
 1. Bottom up approach
