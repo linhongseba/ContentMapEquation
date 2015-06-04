@@ -18,16 +18,26 @@ go into either the Top down or Bottom up, type make to automatically compile and
    usage: graphfilename [option]
 
 	 "Use '-o' to indicate step-by-step output";
-   "Use '-of' to indicate the output folder"
-   "Use '-suffix' to indicate an output file suffix";
+	 
+	 "Use '-of' to indicate the output folder"
+	 
+	 "Use '-suffix' to indicate an output file suffix";
+	 
 	 "Use '-c' to indicate content column";
+	 
 	 "Use '-d' to indicate dictionary column";
+	 
 	 "Use '-dir' to indicate a directed graph (default is undirected)";
+	 
 	 "Use '-tau <tau>' to indicate the teleportation probability (only used for directed graphs, default is 0.15)";
+	 
 	 "Use '-g' to indicate there is a ground truth file (Format: NodeNumber \t Community Number)";
+	 
 	 "Use '-f' to indicate the dictionary filename";
+	 
 	 "user '-e' to indicate extended content column";
-    "user '-trials <trials>' to return the best partitioning of <trials> trials";
+	 
+	 "user '-trials <trials>' to return the best partitioning of <trials> trials";
 
 #Input format 
 1. format for graph
