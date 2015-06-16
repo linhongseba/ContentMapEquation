@@ -41,6 +41,7 @@ go into either the Top down or Bottom up, type make to automatically compile and
 
 #Input format 
 1. format for graph
+
 The first line is number of nodes, and starting from the second lins is the adjacence list of each node formated as follows:
 
 node_id,degree_d:neighboreid1,weight1:neighborid2,weight2:...neighboridd,weightd
@@ -61,6 +62,7 @@ where this graph is a triangle with three vertices
 
 
 2. format for features
+
 Each line is the feature vector representation for a node formatted as follows:
 
 [node_id] tab [number_of_features d] tab [feature_index1]tab[feature_weight1]...[feature_indexd] tab [feature_weightd]
