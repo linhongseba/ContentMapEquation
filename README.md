@@ -37,7 +37,7 @@ Usage: graphfilename [option]
 	 
 	 "Use '-df' to indicate the dictionary filename";
 	 
-2. Top down approach
+2.  Top down approach
 
    usage: graphfilename [option]
 
@@ -64,7 +64,7 @@ Usage: graphfilename [option]
 	 "user '-trials <trials>' to return the best partitioning of <trials> trials";
 
 #Input format 
-1. format for graph
+    + format for graph
 
 The first line is number of nodes, and starting from the second lins is the adjacence list of each node formated as follows:
 
@@ -84,8 +84,7 @@ An example of input graph format is as follows:
 
 where this graph is a triangle with three vertices
 
-
-2. format for features
+    + format for features
 
 Each line is the feature vector representation for a node formatted as follows:
 
