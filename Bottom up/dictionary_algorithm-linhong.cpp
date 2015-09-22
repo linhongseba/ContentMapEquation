@@ -609,12 +609,11 @@ int main(int argc, char *argv[]){
 		//////////////////////////////////////////////////////
 		  // Output the intial module values
 		  if(OUTPUT_STEPS){
-			
-           //cout << endl << "\n\nModule\tq_i\tpam_i:\n\n\n";
-           //for (i=0; i<numPartitions; i++)
-           //    cout << endl  << i << "\t" << qi[i] << "\t" << pam[i];
-           //cout << endl << endl;
-          }
+		  	cout << endl << "\n\nModule\tq_i\tpam_i:\n\n\n";
+           		for (i=0; i<numPartitions; i++)
+               			cout << endl  << i << "\t" << qi[i] << "\t" << pam[i];
+           		cout << endl << endl;
+          	}
         //cout<<m1_store<<"\t"<<m2_store<<endl;
 		  if(m1_store==-1||m2_store==-1)
 			  break;
@@ -706,6 +705,12 @@ int main(int argc, char *argv[]){
 		//if(iterations>=2474)
 			//cout<<"iteration number "<<iterations<<endl;
 		//cout<<desccodinglength<<endl;
+		if(OUTPUT_STEPS){
+			 for (i=0; i<numPartitions; i++){
+			 	if (qi[i] > 0)
+			 	std::cout << i << "\t" << qi[i] << "\t" << pam[i]<<endl;
+			 }
+		}
 	}while(desccodinglength>0.00000001&&numPartitions>1);
 	cout<<"finish partitioning"<<endl;
     // Output the final partition
