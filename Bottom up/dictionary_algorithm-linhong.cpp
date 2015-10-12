@@ -417,6 +417,26 @@ int main(int argc, char *argv[]){
     double content_column0 = 0;
     double dictionary_column0 = 0;
 	double initL=structlength(W, partition, N, numPartitions, left_column0, right_column0);
+/*     for(m1=0;m1<numPartitions;m1++){
+        initial_q_sum += q[m1];
+    } */
+    
+   /*  // Calculate Within Module (RightColumn) Contribution and Between Module (LeftColumn) Contribution
+    for(m1=0;m1<numPartitions;m1++){
+        if (initial_q_sum > 0 && q[m1]/initial_q_sum > 0){
+            left_column0  -= q[m1]*log(q[m1]/initial_q_sum)/log(2.0);
+        }
+        if ((q[m1]+pam[m1]) > 0){
+            right_column0 -= q[m1]*log(q[m1]/(q[m1]+pam[m1]))/log(2.0);
+        }
+    }
+	for(i=0;i<N;i++){
+		m1=partition[i];
+		if ((q[m1]+pam[m1]) > 0){
+			right_column0 -=x[i]*log(x[i]/(q[m1]+pam[m1]))/log(2.0);
+		}
+	} */
+    
     // Calculate Content Contribution
     if(ADD_CONTENT || ADD_DICTIONARY){
         for(m1=0;m1<numPartitions;m1++){
@@ -446,7 +466,7 @@ int main(int argc, char *argv[]){
     //------------------------------------------------------------------
     
 	///////////////////////////////////////////////////////////////////////////////////////
-	//////////////initializing partitioning (end)//////////////////////////////////////////
+	//////////////initilizing partitioning (end)//////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////
     // Initialize storage variables
     double q_i_store = 0;
@@ -462,13 +482,13 @@ int main(int argc, char *argv[]){
 	char *isaccessed=new char[N]; //isaccessed is used to mark whether a modual has been visited or not;
 	//psumpart[i] is the sum of x[node] for all the nodes that are in partition i;
 	int iterations = 1;
-	//interparttion is used to store interpartition edges;
+	//interparttion is used to stor interpartition edges;
 	Modual *interparttion=new Modual[N];
 	double q_sum_store;
 	tempWords=(int*)malloc(sizeof(int)*tempsize);
 	tempFrequencies=(double*)malloc(sizeof(double)*tempsize);
 	do{
-		//initialize interparttion edges;
+		//initilize interparttion edges;
         m1_store=-1;
         m2_store=-1;
 		for(i=0;i<N;i++){
@@ -491,12 +511,18 @@ int main(int argc, char *argv[]){
 		double contentLocal = 0; // Local version of contentTotal + DictionaryTotal
 		for(m1=0;m1<numPartitions;m1++){ 
 			memset(isaccessed,'f',sizeof(char)*N);
+			//if(iterations>=2474&&m1==782)
+				//cout<<"m1 value "<<m1<<endl;
+			//cout<<"OK bool here"<<endl;
 			m2=0;
 			for(j=0;j<interparttion[m1].size;j++){
+				//if(iterations>=2474&&m1==782&&j==30)
+					//cout<<"j value "<<j<<endl;
 				neigh=interparttion[m1].nbv[j];
 				m2=partition[neigh];
 				if(isaccessed[m2]=='f'){
 					isaccessed[m2]='t';
+                    //cout<<iterations<<"\t"<<m1<<"\t"<<m2<<endl;
 					// Initialize to zero            
 					p_sum_i = 0;
 					p_sum_log = 0;    // Local version of PQ_log
@@ -581,13 +607,14 @@ int main(int argc, char *argv[]){
 		////////////////////////////////////////////////////////
 		//merge m1_store and m2_store  (start)/////////////////
 		//////////////////////////////////////////////////////
-		  // Output the initial module values
+		  // Output the intial module values
 		  if(OUTPUT_STEPS){
-		  	cout << endl << "\n\nModule\tq_i\tpam_i:\n\n\n";
-           		for (i=0; i<numPartitions; i++)
-               			cout << endl  << i << "\t" << qi[i] << "\t" << pam[i];
-           		cout << endl << endl;
-          	}
+			
+           //cout << endl << "\n\nModule\tq_i\tpam_i:\n\n\n";
+           //for (i=0; i<numPartitions; i++)
+           //    cout << endl  << i << "\t" << qi[i] << "\t" << pam[i];
+           //cout << endl << endl;
+          }
         //cout<<m1_store<<"\t"<<m2_store<<endl;
 		  if(m1_store==-1||m2_store==-1)
 			  break;
@@ -620,10 +647,10 @@ int main(int argc, char *argv[]){
 		
 		//remember to release the memory interpartition later;
 		for(i=0;i<numPartitions;i++){
-			if(i<(numPartitions-1))
-				interparttion[i].reset();
-			else
-				interparttion[i].clear();
+				if(i<(numPartitions-1))
+					interparttion[i].reset();
+				else
+					interparttion[i].clear();
 		}
 
 		//cout<<"OK release memory\n"<<endl;
@@ -640,23 +667,20 @@ int main(int argc, char *argv[]){
             qi[i] = qi[i+1];
             pam[i] = pam[i+1];
             if (ADD_CONTENT || ADD_DICTIONARY){
-
-              replaceDictionaries(Dictionaries[i], Dictionaries[i+1]);
-
+				/*if(iterations>438)
+					cout<<"OK in line 484"<<endl;*/
+                replaceDictionaries(Dictionaries[i], Dictionaries[i+1]);
+			    /*if(iterations>438)
+					cout<<"OK in line 487"<<endl;*/
             }
         }
-		if(OUTPUT_STEPS){
-			for(i=0;i<numPartitions;i++){
-				for(j=0;j<Dictionaries[i].get_numWords();j++){
-					cout<<" "<<Dictionaries[i].get_words()[j];
-				}
-				cout<<endl;
+		
+	/*	for(i=m_max;i<numPartitions;i++){
+			for(j=0;j<Dictionaries[i].get_numWords();j++){
+				cout<<" "<<Dictionaries[i].get_words()[j];
 			}
-			for (i=0; i<N; i++){
-				cout << i << "\t" << partition[i]<<endl;
-			}
-		}
-	
+			cout<<endl;
+		}*/
         // Update values to stored from previous iteration
         Q = Q_store;
         Q_log = Q_log_store;
@@ -677,8 +701,11 @@ int main(int argc, char *argv[]){
 		preL=minL;
 		iterations++;
 		///////////////////////////////////////////////////
-		////update information after merge (END)//////////
+		////update information after merge (start)//////////
 		////////////////////////////////////////////////////
+		//if(iterations>=2474)
+			//cout<<"iteration number "<<iterations<<endl;
+		//cout<<desccodinglength<<endl;
 	}while(desccodinglength>0.00000001&&numPartitions>1);
 	cout<<"finish partitioning"<<endl;
     // Output the final partition
