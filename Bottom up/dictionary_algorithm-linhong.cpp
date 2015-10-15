@@ -260,8 +260,8 @@ int main(int argc, char *argv[]){
     pa = new double[N];
 	HPi=new double[N];
 	//x is the pa (pagerank: expected frequence distribution)
-    //computepagerank(G, N, pa);
-	readpagerank(pagefile.c_str(),N,pa);
+    computepagerank(G, N, pa);
+	//readpagerank(pagefile.c_str(),N,pa);
     double sum_p_logp = 0;
     for(i=0; i<N; i++){
 		if(pa[i]>0)
