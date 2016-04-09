@@ -1,7 +1,17 @@
 # ContentMapEquation
+Given a graph where each node is also associated with content vector, find communities such that each community is coherent in terms of both structure and content.
+
 The implementation for the paper Laura M Smith, Linhong Zhu, Kristina Lerman, and Allon G Percus. Partitioning Networks with Node Attributes by Compressing Information Flow. In arXiv preprint arXiv:1405.4332.
 
-#Installation
+# Table of Content
+
+- [Installation](#installation)
+- [Usage](#Usage)
+- [Input Format](#input-format)
+- [Output Format](#output-format)
+- [Common Q&A](#common-questions)
+
+##Installation
 1.Requirement:
 
 g++, gcc compiler
@@ -14,7 +24,7 @@ Mac, Windows, Linux
 
 go into either the Top down or Bottom up, type make to automatically compile and generate the executable files
 
-#Usage
+##Usage
 
 	+ Bottom up approach
 
@@ -64,7 +74,7 @@ Usage: graphfilename [option]
 	 
 	 "user '-trials <trials>' to return the best partitioning of <trials> trials";
 
-#Input format 
+##Input format 
     + format for graph
 
 The first line is number of nodes, and starting from the second lins is the adjacence list of each node formated as follows:
@@ -115,8 +125,9 @@ An example of input feature format is as follows:
 
 10	1	3	1
 
-#Output format
+##Output format
 
 Each line i gives the partitioning id for the i-th vertex
 
+##Common Questions
 
